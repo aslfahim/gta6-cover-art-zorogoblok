@@ -3,20 +3,83 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cover Snap</title>
+<title>Most Wanted — GTA-Style Cover Maker</title>
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 <main class="app">
-  <section class="controls">
-    <h1>Cover Snap</h1>
-    <p>A photo and a caption, made into a square cover.</p>
-    <label>Photo <input id="photo" type="file" accept="image/*"></label>
-    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
-    <button id="export" type="button">Export PNG 1080 x 1080</button>
-    <p id="status" role="status"></p>
+  <section class="controls" aria-label="Cover editor controls">
+    <header class="brand">
+      <p class="brand-kicker">Wanted-board cover maker</p>
+      <h1>MOST WANTED</h1>
+      <p class="brand-sub">Three-panel lineup poster. Drop in a photo, crop each panel, stamp your caption, export the cover.</p>
+    </header>
+
+    <div class="panel-block">
+      <h2>1 · Photo</h2>
+      <div id="dropzone" class="dropzone" tabindex="0">
+        <span class="dropzone-big">Drop a photo here</span>
+        <span class="dropzone-small">or pick a file — it fills the selected panel</span>
+        <input id="photo" type="file" accept="image/*">
+      </div>
+      <div class="row">
+        <button id="fillAll" type="button" title="Use the selected panel's photo in all three panels">Fill all 3 panels</button>
+        <button id="useSample" type="button" title="Load the built-in sample photo">Use sample photo</button>
+      </div>
+      <div class="panel-tabs" role="group" aria-label="Choose a panel to edit">
+        <button type="button" data-panel="0" class="panel-tab active">Panel 1</button>
+        <button type="button" data-panel="1" class="panel-tab">Panel 2</button>
+        <button type="button" data-panel="2" class="panel-tab">Panel 3</button>
+      </div>
+      <p class="hint">Drag on the preview to pan the selected panel. Each panel keeps its own crop.</p>
+      <label>Zoom — selected panel
+        <input id="zoom" type="range" min="1" max="3" step="0.05" value="1.15">
+      </label>
+      <div class="row">
+        <button id="resetCrop" type="button">Reset crop</button>
+        <button id="clearPanel" type="button">Clear panel</button>
+      </div>
+    </div>
+
+    <div class="panel-block">
+      <h2>2 · Caption</h2>
+      <label>Headline
+        <input id="caption" type="text" maxlength="28" value="MOST WANTED">
+      </label>
+      <label>Reward line
+        <input id="subcaption" type="text" maxlength="60" value="REWARD $50,000 — WANTED ALIVE">
+      </label>
+      <div class="row two">
+        <label>Size
+          <input id="captionSize" type="range" min="0.6" max="1.6" step="0.05" value="1">
+        </label>
+        <label>Colour
+          <input id="captionColor" type="color" value="#8f0f1e">
+        </label>
+      </div>
+      <div class="row checks">
+        <label class="check"><input id="outline" type="checkbox" checked> Outline</label>
+        <label class="check"><input id="shadow" type="checkbox" checked> Shadow</label>
+        <label class="check"><input id="stamp" type="checkbox" checked> Stamp tilt</label>
+      </div>
+    </div>
+
+    <div class="panel-block">
+      <h2>3 · Export PNG</h2>
+      <div class="sizes" role="group" aria-label="Export size">
+        <button type="button" data-size="square" class="size-btn active">1080 × 1080</button>
+        <button type="button" data-size="portrait" class="size-btn">1080 × 1350</button>
+        <button type="button" data-size="landscape" class="size-btn">1920 × 1080</button>
+      </div>
+      <button id="export" type="button" class="export-btn">Export PNG</button>
+      <p id="status" role="status"></p>
+    </div>
   </section>
-  <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
+
+  <section class="preview" aria-label="Live cover preview">
+    <canvas id="cover" width="1080" height="1080" aria-label="The wanted-board cover"></canvas>
+    <p class="preview-hint">Live preview — drag a panel to reposition its photo.</p>
+  </section>
 </main>
 <script type="module" src="./src/main.js"></script>
 </body>

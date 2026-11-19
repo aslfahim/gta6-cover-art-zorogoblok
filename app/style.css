@@ -1,12 +1,50 @@
-html, body { margin: 0; height: 100%; background: #f2f0f4; color: #1d1b22; font: 15px/1.4 system-ui, sans-serif; }
-.app { display: flex; gap: 32px; align-items: center; justify-content: center; height: 100%; padding: 24px; box-sizing: border-box; }
-.controls { display: flex; flex-direction: column; gap: 14px; width: 280px; }
-.controls h1 { margin: 0; font-size: 28px; }
-.controls p { margin: 0; color: #5c5866; }
-label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; }
-input[type=text] { font: inherit; padding: 8px; border: 1px solid #c9c4d1; border-radius: 6px; }
-button { font: inherit; font-weight: 700; padding: 10px; border: 0; border-radius: 6px; background: #1d1b22; color: #fff; cursor: pointer; }
-canvas { width: min(70vh, 60vw); height: min(70vh, 60vw); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); }
-body.shot-cover .controls { display: none; }
-body.shot-cover .app { padding: 0; }
-body.shot-cover canvas { width: 100vw; height: 100vh; box-shadow: none; }
+html, body { margin: 0; min-height: 100%; background: #17130f; color: #f3ead2; font: 15px/1.45 system-ui, -apple-system, sans-serif; }
+* { box-sizing: border-box; }
+.app { display: flex; gap: 28px; align-items: flex-start; justify-content: center; padding: 22px; }
+.controls { width: 320px; flex: none; display: flex; flex-direction: column; gap: 16px; }
+.brand-kicker { margin: 0 0 2px; letter-spacing: .22em; text-transform: uppercase; font-size: 11px; font-weight: 800; color: #ffb347; }
+.brand h1 { margin: 0; font-size: 38px; line-height: .95; letter-spacing: .01em; font-weight: 900; color: #ff3b30; text-shadow: 2px 2px 0 #5c0a08; }
+.brand-sub { margin: 8px 0 0; color: #cfc4a8; font-size: 13.5px; }
+.panel-block { background: #221c15; border: 1px solid #3d3222; border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.panel-block h2 { margin: 0; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: #ffb347; }
+label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 13px; color: #e8dcc0; }
+input[type=text] { font: inherit; padding: 9px 10px; border: 1px solid #57472e; border-radius: 7px; background: #17130f; color: #f3ead2; }
+input[type=text]:focus { outline: 2px solid #ffb347; outline-offset: 1px; }
+input[type=range] { width: 100%; accent-color: #ff3b30; }
+input[type=color] { width: 100%; height: 36px; padding: 2px; border: 1px solid #57472e; border-radius: 7px; background: #17130f; cursor: pointer; }
+button { font: inherit; font-weight: 700; padding: 9px 12px; border: 0; border-radius: 8px; background: #3a2f1f; color: #f3ead2; cursor: pointer; }
+button:hover { background: #4d3d27; }
+button.active { background: #ff3b30; color: #fff; }
+.row { display: flex; gap: 8px; }
+.row > * { flex: 1; }
+.row.two label { flex: 1; }
+.checks { align-items: center; }
+.check { flex-direction: row; align-items: center; gap: 6px; font-weight: 600; }
+.check input { accent-color: #ff3b30; width: 16px; height: 16px; }
+.dropzone { position: relative; border: 2px dashed #8a6d3b; border-radius: 10px; padding: 18px 12px; text-align: center; background: #17130f; cursor: pointer; }
+.dropzone.dragging { border-color: #ff3b30; background: #2a150f; }
+.dropzone-big { display: block; font-weight: 800; font-size: 15px; }
+.dropzone-small { display: block; margin-top: 3px; font-size: 12px; color: #b8a982; }
+.dropzone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.panel-tabs { display: flex; gap: 6px; }
+.panel-tab { flex: 1; padding: 7px 4px; font-size: 13px; }
+.hint { margin: 0; font-size: 12px; color: #b8a982; }
+.sizes { display: flex; gap: 6px; }
+.size-btn { flex: 1; padding: 8px 4px; font-size: 12.5px; }
+.export-btn { background: #ff3b30; color: #fff; font-size: 16px; padding: 12px; }
+.export-btn:hover { background: #e53228; }
+#status { margin: 0; min-height: 20px; font-size: 13px; color: #9fe870; }
+.preview { flex: 1; max-width: 760px; display: flex; flex-direction: column; align-items: center; gap: 10px; position: sticky; top: 22px; }
+.preview canvas { width: min(72vh, 100%); height: auto; aspect-ratio: 1 / 1; background: #e9d6a4; box-shadow: 0 14px 44px rgba(0, 0, 0, .55); border-radius: 4px; cursor: grab; touch-action: none; }
+.preview canvas:active { cursor: grabbing; }
+.preview-hint { margin: 0; font-size: 12.5px; color: #b8a982; }
+/* Screenshot scenes: cover alone fills the viewport; editor keeps the full UI. */
+body.shot-cover .controls, body.shot-cover .preview-hint { display: none; }
+body.shot-cover .app { padding: 0; display: block; }
+body.shot-cover .preview { max-width: none; position: static; }
+body.shot-cover canvas { width: 100vw; height: 100vh; aspect-ratio: auto; box-shadow: none; border-radius: 0; }
+@media (max-width: 900px) {
+  .app { flex-direction: column; }
+  .controls { width: 100%; }
+  .preview { position: static; max-width: 100%; }
+}
